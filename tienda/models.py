@@ -11,9 +11,11 @@ class Marca(models.Model):
 class Producto(models.Model):
     nombre_P = models.CharField(max_length=30)
     modelo = models.CharField(max_length=30)
-    unidades = models.IntegerField
-    precio = models.IntegerField
+    unidades = models.IntegerField("Unidades")
+    precio = models.FloatField("Precio")
     detalles = models.CharField(max_length=30)
-    nombre_M = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    nombre_M = models.ForeignKey(Marca, models.PROTECT)
 
+    def __str__(self):
+        return self.nombre_P
 

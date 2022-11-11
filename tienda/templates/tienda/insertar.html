@@ -1,0 +1,55 @@
+<html>
+
+    <body>
+
+        <h1>Insertar un nuevo producto:</h1>
+
+        <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_table}}
+    <table>
+        <!--Con el metodo Post, los datos se envian usando la url del navegador,
+        en el for le digo de donde vienen los datos-->
+
+           <tr>
+               <td><label type="text" name="nombre_P">Nombre: </label></td>
+               <td><input type="text"> {{ Producto.nombre_P }}</td>
+           </tr>
+
+            <tr>
+                <td><label type="text" name="modelo">Modelo: </label></td>
+                <td><input type="text"> {{ Producto.modelo }}</td>
+            </tr>
+
+            <tr>
+                <td><label type="text" name="unidades">Uds: </label></td>
+                <td><input type="text"> {{ Producto.unidades }}</td>
+            </tr>
+
+            <tr>
+                <td><label type="text" name="precio">Precio: </label></td>
+                <td><input type="text"></td>
+            </tr>
+
+            <tr>
+                <td><label type="text" name="detalles">Detalles: </label></td>
+                <td><input type="text"> {{ Producto.detalles }}</td>
+            </tr>
+
+            <tr>
+                <td><label type="text" name="marca">Marca: </label></td>
+                <td><input type="text"> {{ Producto.nombre_M }}</td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Añadir"></td>
+            </tr>
+        </table>
+
+    </form>
+
+    </body>
+
+</html>
+
+

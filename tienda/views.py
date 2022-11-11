@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProductoForm, MarcaForm
 
@@ -6,10 +6,13 @@ from .forms import ProductoForm, MarcaForm
 def welcome(request):
     return render(request,'tienda/index.html', {})
 
+def listado(request):
+    prd = Producto.objects.all()
+    return render(request, 'tienda/listado.html', {"prd":prd})
+
 def insertar(request):
+    formulario = ProductoForm(request.POST)
     if request.method == 'POST':
-        
-        formulario = ProductoForm(request.POST)
         
         if formulario.is_valid():
             
@@ -17,7 +20,7 @@ def insertar(request):
             
             infForm=formulario.cleaned_data
             
-            return redirect('index')
+            return redirect('tienda/insertar/')
         
         else:
             

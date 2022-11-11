@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Blog</title>
+</head>
+
+<body>
+    <h1> Listado de productos </h1>
+        <table>
+        {% for Producto in prd %}
+            <tr>
+                <td><label type="text" name="nombre">Nombre: {{ Producto.nombre_P }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="marca">Marca: {{ Producto.nombre_M }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="precio">Precio: {{ Producto.precio }}</label></td>
+            </tr>
+            <tr>
+                <td><p> --- --- --- </p></td>
+            </tr>
+        {% endfor %}
+        </table>
+</body>
+
+</html>

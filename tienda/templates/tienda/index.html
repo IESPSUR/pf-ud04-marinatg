@@ -3,8 +3,16 @@
 {% block content %}
 	<h2>Bienvenido a la tienda virtual</h2>
 	<ul>
-		<li>Gestión de productos</li>
+		<li>Gestión de productos
+			<ul>
+				<li><a name="listado" id="listado" href="{% url 'listado' %}" role="button">Acceder al listado</a></li>
+			</ul>
+		</li>
 		<li>Informes</li>
-		<li>Realizar compra</li>
+		<li>Realizar compra
+			<ul>
+				<li><a name="compra" id="compra" href="{% url 'compra' %}" role="button">Realizar un pedido</a></li>
+			</ul>
+		</li>
 	</ul>
 {% endblock %}

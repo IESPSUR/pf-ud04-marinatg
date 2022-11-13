@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProductoForm, MarcaForm
+from django.db.models import Q
 
 # Create your views here.
 def welcome(request):
@@ -54,24 +55,15 @@ def eliminar(request, id):
     return redirect('listado')
 
 def compra(request):
+    busqueda = request.GET.get("buscar")
     prd = Producto.objects.all()
+    if busqueda:
+        # El filter es como un where,
+        # El Q, importado arriba, revisa cada campo del modelo;
+        # icontains lo reconoce con mayus, minus e imcompleto
+        prd = Producto.objects.filter(
+            Q(nombre_P = busqueda) |
+            Q(nombre_M = busqueda)
+        ).distinct()
+
     return render(request, 'tienda/compra.html', {"prd":prd})
-
-def buscar(request, nombre_P):
-    prd = Producto.objects.get(nombre_P = nombre_P)
-    formulario = ProductoForm(request.GET or None, instance=prd)
-    if request.method == 'GET':
-
-        if formulario.is_valid():
-
-            formulario.save()
-
-            infForm = formulario.cleaned_data
-
-            return redirect('tienda/buscado.html')
-
-        else:
-
-            formulario = ProductoForm()
-
-    return render(request, 'tienda/compra.html', {"prd": prd})

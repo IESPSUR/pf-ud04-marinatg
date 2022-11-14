@@ -62,8 +62,10 @@ def compra(request):
         # El Q, importado arriba, revisa cada campo del modelo;
         # icontains lo reconoce con mayus, minus e imcompleto
         prd = Producto.objects.filter(
-            Q(nombre_P = busqueda) |
+            Q(nombre_P__icontains = busqueda) |
             Q(nombre_M = busqueda)
         ).distinct()
 
     return render(request, 'tienda/compra.html', {"prd":prd})
+
+"""get_object_or_404, si el objeto no existe, dame este error"""

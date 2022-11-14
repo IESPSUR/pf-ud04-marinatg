@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Marca(models.Model):
+    #Si no quiero poner primary key --> unique
     nombre_M = models.CharField(max_length=30, primary_key=True)
     
     #para que en el panel de administracion salga el nombre y no Producto object..
@@ -15,6 +16,7 @@ class Producto(models.Model):
     unidades = models.IntegerField("Unidades")
     precio = models.FloatField("Precio")
     detalles = models.CharField(max_length=30)
+    """Protect no te deja borrar, rerstrict solo si borras todo el arbol de dependencias"""
     nombre_M = models.ForeignKey(Marca, models.PROTECT)
 
     def __str__(self):
@@ -27,5 +29,8 @@ class Vendido(models.Model):
     unidades = models.IntegerField("Unidades")
     importe = models.FloatField("Importe")
     nombre_M = models.CharField(max_length=30)
+
+    """Poner e campo usuariodel tipo setings.AUTH_USER..
+    poner un campo fecha"""
 
 

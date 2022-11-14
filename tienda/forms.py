@@ -11,3 +11,5 @@ class MarcaForm(forms.ModelForm):
     class Meta:
         model = Marca
         fields = '__all__'
+
+        """ModelForm para manipular un modelo, sino usar solo Form"""

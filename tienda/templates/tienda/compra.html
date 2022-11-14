@@ -1,3 +1,4 @@
+{% extends 'tienda/base.html' %}
 <html>
 
     <head>
@@ -7,7 +8,7 @@
     <body>
 
         <h1>Nuestros productos</h1>
-
+{% block content %}
         <div>
             <form method="get">
                 <input type="text" placeholder="Buscar..." name="buscar">
@@ -15,7 +16,7 @@
             </form>
         </div>
 
-        <table>
+        <table class="table table-striped">
         {% for Producto in prd %}
             <tr>
                 <td><label type="text" name="nombre">Nombre: {{ Producto.nombre_P }}</label></td>
@@ -26,8 +27,14 @@
             <tr>
                 <td><label type="text" name="precio">Precio: {{ Producto.precio }}€</label></td>
             </tr>
+             <tr>
+                <td><label type="text" name="modelo">Modelo: {{ Producto.modelo }}</label></td>
+            </tr>
+             <tr>
+                <td><label type="text" name="detalles">Detalles: {{ Producto.detalles }}</label></td>
+            </tr>
             <tr>
-				<td><input type="number" style="width: 50px;"><a name="uds" id="uds" href="" role="button">Uds</a></input></td>
+				<td><input type="number" style="width: 50px;"><a name="uds" id="uds" href="" role="button">Uds</a></td>
 				<td><button><a name="comprar" id="comprar" href="" role="button">Comprar</a></button></td>
             </tr>
             <tr>
@@ -35,7 +42,7 @@
             </tr>
         {% endfor %}
         </table>
-
+{% endblock %}
     </body>
 
 </html>

@@ -1,34 +1,30 @@
+{% extends 'tienda/base.html' %}
 <html>
 
 <head>
     <meta charset="UTF-8">
 </head>
-
+{% block content %}
 <body>
     <h1> Listado de productos </h1>
 
-    <td><button><a name="insertar" id="insertar" href="{% url 'insertar' %}" role="button">Agregar productos</a></button></td>
+    <td><button style="border: none;"><a class="btn btn-success" id="insertar" href="{% url 'insertar' %}" role="button">Agregar productos</a></button></td>
     <p>     </p>
-        <table>
+        <table class="table table-striped">
         {% for Producto in prd %}
             <tr>
                 <td><label type="text" name="nombre">Nombre: {{ Producto.nombre_P }}</label></td>
-            </tr>
-            <tr>
+
                 <td><label type="text" name="marca">Marca: {{ Producto.nombre_M }}</label></td>
-            </tr>
-            <tr>
+
                 <td><label type="text" name="precio">Precio: {{ Producto.precio }}€</label></td>
-            </tr>
-            <tr>
-				<td><button><a name="editar" id="editar" href="{% url 'editar'  Producto.id  %}" role="button">Editar producto</a></button></td>
-				<td><button><a name="eliminar" id="eliminar" href="{% url 'eliminar' Producto.id %}" role="button">Eliminar producto</a></button></td>
-            </tr>
-            <tr>
-                <td><p> --------- </p></td>
+
+				<td><button style="border: none;"><a class="btn btn-primary" id="editar" href="{% url 'editar'  Producto.id  %}" role="button">Editar producto</a></button>
+				<button style="border: none;"><a class="btn btn-danger" id="eliminar" href="{% url 'eliminar' Producto.id %}" role="button">Eliminar producto</a></button></td>
+
             </tr>
         {% endfor %}
         </table>
 </body>
-
+{%  endblock %}
 </html>

@@ -30,7 +30,10 @@ class Vendido(models.Model):
     importe = models.FloatField("Importe")
     nombre_M = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.nombre_P
     """Poner e campo usuariodel tipo setings.AUTH_USER..
     poner un campo fecha"""
+
 
 

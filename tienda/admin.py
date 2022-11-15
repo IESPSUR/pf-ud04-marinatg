@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tienda.models import Producto, Marca
+from tienda.models import Producto, Marca, Vendido
 
 # Register your models here.
 
@@ -7,5 +7,9 @@ from tienda.models import Producto, Marca
 class ProductoAdmin(admin.ModelAdmin):
     list_display=("nombre_P", "modelo", "unidades", "precio", "detalles", "nombre_M")
 
+class VendidoAdmin(admin.ModelAdmin):
+    list_display = ("id_compra", "id_cliente", "nombre_P", "unidades", "importe", "nombre_M")
+
 admin.site.register(Producto)
 admin.site.register(Marca)
+admin.site.register(Vendido)

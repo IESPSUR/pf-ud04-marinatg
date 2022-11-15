@@ -1,20 +1,24 @@
-<form enctype="multipart/form-data" method="post">
-    {% csrf_token %}
-    {% for campo in formulario %}
-    <!--Le dice adjango que el formulario pertenece a esta aplicacion-->
-    <div class="mb-3">
-        <label for="" class="form-label">{{ campo.label }}</label>
+{% extends 'tienda/base.html' %}
 
-        <input type="{{ campo.field.widget.input_type }}"
-        class="form-control"
-        name="{{ campo.name }}"
-        id="input"
-        placeholder="{{ campo.label }}"
-        value="{{ campo.value | default:'' }}">
+{% block content %}
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {% for campo in formulario %}
+        <!--Le dice adjango que el formulario pertenece a esta aplicacion-->
+        <div .form-inline>
+            <label for="" class="form-label">{{ campo.label }}</label>
 
-    </div>
-    <div class="col-12 help-text">{{campo.errors}}</div>
-    {% endfor %}
+            <input type="{{ campo.field.widget.input_type }}"
+            class="form-control"
+            name="{{ campo.name }}"
+            id="input"
+            placeholder="{{ campo.label }}"
+            value="{{ campo.value | default:'' }}">
 
-    <input name="" id="btn" class="btn btn-success" type="submit" value="Enviar información">
-</form>
+        </div>
+        <div class="col-12 help-text">{{campo.errors}}</div>
+        {% endfor %}
+
+        <input name="" id="btn" class="btn btn-success" type="submit" value="Enviar información">
+    </form>
+{% endblock %}

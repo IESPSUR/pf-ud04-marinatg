@@ -27,6 +27,9 @@
             <tr>
                 <td><label type="text" name="precio">Precio: {{ Producto.precio }}€</label></td>
             </tr>
+            <tr>
+                <td><label type="text" name="modelo">Uds Disponibles: {{ Producto.unidades }}</label></td>
+            </tr>
              <tr>
                 <td><label type="text" name="modelo">Modelo: {{ Producto.modelo }}</label></td>
             </tr>
@@ -34,11 +37,8 @@
                 <td><label type="text" name="detalles">Detalles: {{ Producto.detalles }}</label></td>
             </tr>
             <tr>
-				<td><input type="number" style="width: 50px;"><a name="uds" id="uds" href="" role="button">Uds</a></td>
-				<td><button><a name="comprar" id="comprar" href="" role="button">Comprar</a></button></td>
-            </tr>
-            <tr>
-                <td><p> --------- </p></td>
+				<td><input type="number" style="width: 50px;"><a id="uds" href="" role="button">Uds</a></td>
+				<td><button  style="border: none;"><a class="btn btn-success" id="comprar" href="{% url 'compra' %}" role="button">Comprar</a></button></td>
             </tr>
         {% endfor %}
         </table>

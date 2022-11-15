@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProductoForm, MarcaForm
 from django.db.models import Q
+from django.db import transaction
 
 # Create your views here.
 def welcome(request):
@@ -57,6 +58,7 @@ def eliminar(request, id):
 def compra(request):
     busqueda = request.GET.get("buscar")
     prd = Producto.objects.all()
+
     if busqueda:
         # El filter es como un where,
         # El Q, importado arriba, revisa cada campo del modelo;
@@ -66,6 +68,25 @@ def compra(request):
             Q(nombre_M = busqueda)
         ).distinct()
 
+        uds = Producto.objects.get()
+        formulario = ProductoForm(request.POST or None, instance=uds)
+        comprado = Vendido.objects.all()
+
+    if request.method == 'POST':
+
+            if formulario.is_valid():
+                formulario.save()
+                if (prd.unidades > uds):
+                    prd.unidades = prd.unidades - uds;
+                    prd.save()
+                    comprado.Vendido()
+                    compra.prd = prd
+                    compra.unidades = uds
+                    raise ValueError("No hay suficientes unidades")
+
     return render(request, 'tienda/compra.html', {"prd":prd})
+
+"""Crear mejor otra vista para el check out, no hacer en compra??Conseguir: Restar unidades que se compran, establecen importe segun unidades y precio del producto
+get muestra los datos, post confirma la compra"""
 
 """get_object_or_404, si el objeto no existe, dame este error"""

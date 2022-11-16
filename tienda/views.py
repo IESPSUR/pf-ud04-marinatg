@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import ProductoForm, MarcaForm
+from .forms import ProductoForm, MarcaForm, VendidoForm
 from django.db.models import Q
 from django.db import transaction
 
@@ -17,7 +17,7 @@ def insertar(request):
     if request.method == 'POST':
         
         if formulario.is_valid():
-            
+
             formulario.save()
             
             infForm=formulario.cleaned_data
@@ -68,25 +68,32 @@ def compra(request):
             Q(nombre_M = busqueda)
         ).distinct()
 
-        uds = Producto.objects.get()
-        formulario = ProductoForm(request.POST or None, instance=uds)
-        comprado = Vendido.objects.all()
+    return render(request, 'tienda/compra.html', {"prd": prd})
 
+def insertarCompra(request, id):
+    producto = Producto.objects.get(id=id)
+    formulario = ProductoForm(request.POST or None, instance=producto)
+    '''vendido = Vendido'''
+    formularioV = VendidoForm(request.POST or None)
+    unidadesForm = 0
+    ventas = Vendido.objects.all()
+    numVentas = len(ventas) + 1
     if request.method == 'POST':
 
-            if formulario.is_valid():
-                formulario.save()
-                if (prd.unidades > uds):
-                    prd.unidades = prd.unidades - uds;
-                    prd.save()
-                    comprado.Vendido()
-                    compra.prd = prd
-                    compra.unidades = uds
-                    raise ValueError("No hay suficientes unidades")
+        if producto.unidades > unidadesForm:
+            producto.unidades = producto.unidades - unidadesForm
+            producto.save()
 
-    return render(request, 'tienda/compra.html', {"prd":prd})
+            formularioV.id_compra = numVentas
+            formularioV.id_cliente = 1
+            formularioV.nombre_P = producto.nombre_P
+            formularioV.importe = unidadesForm * producto.precio
+            formularioV.nombre_M = producto.nombre_M
+            formularioV.unidades = unidadesForm
 
-"""Crear mejor otra vista para el check out, no hacer en compra??Conseguir: Restar unidades que se compran, establecen importe segun unidades y precio del producto
-get muestra los datos, post confirma la compra"""
+            if formularioV.is_valid():
+                formularioV.save()
 
-"""get_object_or_404, si el objeto no existe, dame este error"""
+    return render(request, 'tienda/insertarCompra.html', {'formulario': formulario, 'unidadesForm': unidadesForm})
+
+

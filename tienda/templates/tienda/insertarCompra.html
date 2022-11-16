@@ -1,0 +1,50 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+    <body>
+
+    {% block content %}
+
+
+    <table>
+
+                <tr>
+                    <td><label type="text" name="nombre">Nombre: {{ formulario.nombre_P }}</label></td>
+
+                    <td><label type="text" name="marca">Marca: {{ formulario.nombre_M }}</label></td>
+
+                    <td><label type="text" name="uds">Uds: {{ formulario.unidades }}</label></td>
+
+                    <td><label type="text" name="precio">Importe: {{ formulario.precio }}€</label></td>
+
+                    <td>
+
+                    </td>
+
+                </tr>
+    </table>
+    <table>
+            <form enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <label for="" class="form-label">unidadesForm</label>
+                    </td>
+                    <td>
+                        <input  type="number"
+                            class="form-control"
+                            name="unidadesForm"
+                            id="input"
+                            placeholder="unidadesForm"
+                            value="{{ unidadesForm }}">
+                    </td>
+                    <td>
+                        <input name="" id="btn" class="btn btn-success" type="submit" value="Finalizar compra">
+                    </td>
+                </tr>
+            </form>
+    </table>
+    {% endblock %}
+    </body>
+
+</html>

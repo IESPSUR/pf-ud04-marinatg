@@ -37,8 +37,7 @@
                 <td><label type="text" name="detalles">Detalles: {{ Producto.detalles }}</label></td>
             </tr>
             <tr>
-				<td><input type="number" style="width: 50px;"><a id="uds" href="" role="button">Uds</a></td>
-				<td><button  style="border: none;"><a class="btn btn-success" id="comprar" href="{% url 'compra' %}" role="button">Comprar</a></button></td>
+				<td><button  style="border: none;"><a class="btn btn-success" id="comprar" href="{% url 'insertarCompra' Producto.id %}" role="button">Comprar</a></button></td>
             </tr>
         {% endfor %}
         </table>

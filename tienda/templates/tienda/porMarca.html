@@ -1,0 +1,38 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+
+{% block content %}
+        <h1>Buscar por marca</h1>
+        <div>
+            <form method="get">
+                <input type="text" placeholder="Buscar..." name="buscar">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    <table class="table table-striped">
+        {% for Vendido in marca %}
+            <tr>
+                <td><label type="text" name="nombre">Nombre: {{ Vendido.nombre_P }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="marca">Marca: {{ Vendido.nombre_M }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="importe">Importe: {{ Vendido.importe }}€</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="unidades">Uds vendidas: {{ Vendido.unidades }}</label></td>
+            </tr>
+
+        {% endfor %}
+        </table>
+{% endblock %}
+    </body>
+
+</html>

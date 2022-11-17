@@ -1,0 +1,29 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+
+{% block content %}
+
+        <table class="table table-striped">
+
+            <th>INFORMES DE VENTAS:</th>
+
+            <tr>
+                <td><a name="top10" id="top10" href="{% url 'top10' %}" role="button">Top 10 productos mas vendidos</a></td>
+            </tr>
+
+            <tr>
+		        <td><a name="porMarca" id="porMarca" href="{% url 'porMarca' %}" role="button">Buscar por marca</a></td>
+            </tr>
+
+        </table>
+
+{% endblock %}
+    </body>
+
+</html>

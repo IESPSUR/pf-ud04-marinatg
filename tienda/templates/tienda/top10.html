@@ -1,0 +1,38 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+{% block content %}
+
+<body>
+
+    <h1> Top 10 productos más vendidos </h1>
+
+    <p>     </p>
+
+        <table class="table table-striped">
+
+        {% for Vendido in top10 %}
+
+            <tr>
+                <td><label type="text" name="nombre">Nombre: {{ Vendido.nombre_P }}</label></td>
+
+                <td><label type="text" name="marca">Marca: {{ Vendido.nombre_M }}</label></td>
+
+                <td><label type="text" name="importe">importe total: {{ Vendido.importe }}€</label></td>
+
+                <td><label type="text" name="unidades">Unidades vendidas: {{ Vendido.unidades }}</label></td>
+
+            </tr>
+
+        {% endfor %}
+
+        </table>
+</body>
+
+{%  endblock %}
+
+</html>

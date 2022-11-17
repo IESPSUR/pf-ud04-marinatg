@@ -100,4 +100,22 @@ def insertarCompra(request, id):
 
     return render(request, 'tienda/insertarCompra.html', {'formulario': formulario, 'unidadesForm': miformulario})
 
+def informes(request):
 
+    return render(request, 'tienda/informes.html', {})
+
+def porMarca(request):
+    busqueda = request.GET.get("buscar")
+    marca = Vendido.objects.all()
+
+    if busqueda:
+        marca = Vendido.objects.filter(
+            Q(nombre_M=busqueda)
+        ).distinct()
+    return render(request, 'tienda/porMarca.html', {'marca': marca})
+
+def top10(request):
+    # Pongo - en unidades, para orden descendente
+    top10 = Vendido.objects.all().order_by('-unidades')[:10]
+
+    return render(request, 'tienda/top10.html', {'top10': top10})

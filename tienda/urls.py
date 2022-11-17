@@ -13,4 +13,7 @@ urlpatterns = [
     path('tienda/eliminar/<int:id>', views.eliminar, name='eliminar'),
     path('tienda/compra/', views.compra, name='compra'),
     path('tienda/insertarCompra/<int:id>', views.insertarCompra, name='insertarCompra'),
+    path('tienda/informes/', views.informes, name='informes'),
+    path('tienda/top10/', views.top10, name='top10'),
+    path('tienda/porMarca/', views.porMarca, name='porMarca'),
 ]

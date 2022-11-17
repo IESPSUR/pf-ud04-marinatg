@@ -17,3 +17,6 @@ class VendidoForm(forms.ModelForm):
         model = Vendido
         fields = '__all__'
         """ModelForm para manipular un modelo, sino usar solo Form"""
+
+class UnidadesForm(forms.Form):
+    unidades = forms.IntegerField(required=True, min_value=1)

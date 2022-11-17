@@ -25,13 +25,15 @@ class Producto(models.Model):
 class Vendido(models.Model):
     id_compra = models.IntegerField("Id_Compra", primary_key=True)
     id_cliente = models.IntegerField("Id_Cliente")
-    nombre_P = models.CharField(max_length=30)
+    nombre_P = models.ForeignKey(Producto, models.PROTECT)
     unidades = models.IntegerField("Unidades")
     importe = models.FloatField("Importe")
-    nombre_M = models.CharField(max_length=30)
+    nombre_M = models.ForeignKey(Marca, models.PROTECT)
 
     def __str__(self):
-        return self.nombre_P
+        return str(self.id_compra)
+
+
     """Poner e campo usuariodel tipo setings.AUTH_USER..
     poner un campo fecha"""
 

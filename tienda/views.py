@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import ProductoForm, MarcaForm, VendidoForm
+from .forms import ProductoForm, MarcaForm, VendidoForm, UnidadesForm
 from django.db.models import Q
 from django.db import transaction
 
@@ -72,28 +72,32 @@ def compra(request):
 
 def insertarCompra(request, id):
     producto = Producto.objects.get(id=id)
+    marca = Marca.objects.get(nombre_M=producto.nombre_M)
     formulario = ProductoForm(request.POST or None, instance=producto)
-    '''vendido = Vendido'''
-    formularioV = VendidoForm(request.POST or None)
-    unidadesForm = 0
+    # formularioV = VendidoForm(request.POST or None)
+    miformulario = UnidadesForm(request.POST)
     ventas = Vendido.objects.all()
     numVentas = len(ventas) + 1
+
     if request.method == 'POST':
+        if miformulario.is_valid():
+            unidadesC = miformulario.cleaned_data['unidades']
 
-        if producto.unidades > unidadesForm:
-            producto.unidades = producto.unidades - unidadesForm
-            producto.save()
+            if producto.unidades > unidadesC:
+                producto.unidades = producto.unidades - unidadesC
+                producto.save()
 
-            formularioV.id_compra = numVentas
-            formularioV.id_cliente = 1
-            formularioV.nombre_P = producto.nombre_P
-            formularioV.importe = unidadesForm * producto.precio
-            formularioV.nombre_M = producto.nombre_M
-            formularioV.unidades = unidadesForm
+                venta = Vendido(id_compra = numVentas,
+                                id_cliente = 1,
+                                nombre_P = producto,
+                                importe = unidadesC * producto.precio,
+                                nombre_M = marca,
+                                unidades = unidadesC)
+                venta.save()
 
-            if formularioV.is_valid():
-                formularioV.save()
+            # if formularioV.is_valid():
+            #     formularioV.save()
 
-    return render(request, 'tienda/insertarCompra.html', {'formulario': formulario, 'unidadesForm': unidadesForm})
+    return render(request, 'tienda/insertarCompra.html', {'formulario': formulario, 'unidadesForm': miformulario})
 
 

@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="{% static 'css/tienda.css' %}">
 </head>
 <body>
+<nav>
+	<ul>
+		{% if user.is_authenticated %}
+			<li><a name="cerrarSesion" id="cerrarSesion" href="{% url 'cerrarSesion' %}" role="button">Cerrar sesion</a></li>
+		{% else %}
+			<li><a name="resgistro" id="resgistro" href="{% url 'registro' %}" role="button">Registro de usuario</a></li>
+			<li><a name="iniciarSesion" id="iniciarSesion" href="{% url 'iniciarSesion' %}" role="button">Iniciar sesion</a></li>
+		{% endif %}
+	</ul>
+</nav>
 <div class="page-header">
 		<h1><a href="/">Tienda Virtual</a></h1>
     	</div>

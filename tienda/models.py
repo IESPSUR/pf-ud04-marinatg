@@ -1,4 +1,7 @@
+from generalsite import settings
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Marca(models.Model):
@@ -24,7 +27,7 @@ class Producto(models.Model):
 
 class Vendido(models.Model):
     id_compra = models.IntegerField("Id_Compra", primary_key=True)
-    id_cliente = models.IntegerField("Id_Cliente")
+    id_cliente = models.ForeignKey(User, models.CASCADE)
     nombre_P = models.ForeignKey(Producto, models.PROTECT)
     unidades = models.IntegerField("Unidades")
     importe = models.FloatField("Importe")

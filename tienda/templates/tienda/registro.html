@@ -1,0 +1,26 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Registro usuario</title>
+    </head>
+{% block content %}
+    <body>
+
+    {{ error }}
+
+    <form method="post">
+    {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button>
+            Registro
+        </button>
+
+    </form>
+
+    </body>
+{% endblock %}
+</html>

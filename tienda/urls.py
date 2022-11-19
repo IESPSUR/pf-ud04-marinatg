@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
@@ -16,4 +16,7 @@ urlpatterns = [
     path('tienda/informes/', views.informes, name='informes'),
     path('tienda/top10/', views.top10, name='top10'),
     path('tienda/porMarca/', views.porMarca, name='porMarca'),
+    path('tienda/registro/', views.registro, name='registro'),
+    path('tienda/cerrarSesion/', views.cerrarSesion, name='cerrarSesion'),
+    path('tienda/iniciarSesion/', views.iniciarSesion, name='iniciarSesion'),
 ]

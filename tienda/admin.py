@@ -1,5 +1,10 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+
 from tienda.models import Producto, Marca, Vendido
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin, UserAdmin
+
 
 # Register your models here.
 
@@ -9,6 +14,11 @@ class ProductoAdmin(admin.ModelAdmin):
 
 class VendidoAdmin(admin.ModelAdmin):
     list_display = ("id_compra", "id_cliente", "nombre_P", "unidades", "importe", "nombre_M")
+
+
+# Re-register UserAdmin
+
+
 
 admin.site.register(Producto)
 admin.site.register(Marca)

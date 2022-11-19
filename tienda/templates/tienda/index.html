@@ -2,14 +2,21 @@
 
 {% block content %}
 	<h2>Bienvenido a la tienda virtual</h2>
+
 	<ul>
 
-        <li><a name="listado" id="listado" href="{% url 'listado' %}" role="button">Gestión de productos</a></li>
+		{% if user.username == 'marinatg' %}
 
-		<li><a name="informes" id="informes" href="{% url 'informes' %}" role="button">Informes</a></li>
+				<li><a name="listado" id="listado" href="{% url 'listado' %}" role="button">Gestión de productos</a></li>
 
-        <li><a name="compra" id="compra" href="{% url 'compra' %}" role="button">Realizar compra</a></li>
+				<li><a name="informes" id="informes" href="{% url 'informes' %}" role="button">Informes</a></li>
 
+		{% endif %}
+
+		{% if user.is_authenticated %}
+
+			<li><a name="compra" id="compra" href="{% url 'compra' %}" role="button">Realizar compra</a></li>
+
+		{% endif %}
 	</ul>
 {% endblock %}
-s

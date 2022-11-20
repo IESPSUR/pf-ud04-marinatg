@@ -1,0 +1,43 @@
+{% extends 'tienda/base.html' %}
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+
+{% block content %}
+        <h1>Buscar por cliente</h1>
+        <div>
+            <form method="get">
+                <input type="text" placeholder="Buscar..." name="buscar">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    <table class="table table-striped">
+        {% for Vendido in cliente %}
+            <tr>
+                <td><label type="text" name="idCompra">Id compra: {{ Vendido.id_compra }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="cliente">Cliente: {{ Vendido.id_cliente }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="producto">Producto: {{ Vendido.nombre_P }}€</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="marca">Marca: {{ Vendido.nombre_M }}€</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="unidades">Unidades: {{ Vendido.unidades }}</label></td>
+            </tr>
+            <tr>
+                <td><label type="text" name="importe">Importe: {{ Vendido.importe }}</label></td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endblock %}
+    </body>
+
+</html>

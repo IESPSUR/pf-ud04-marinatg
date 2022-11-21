@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProductoForm, MarcaForm, VendidoForm, UnidadesForm
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.db import transaction
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -114,8 +114,18 @@ def informes(request):
     return render(request, 'tienda/informes.html', {})
 
 def porMarca(request):
+    busqueda = request.GET.get("buscar")
+    marca = Vendido.objects.all()
+
+    if busqueda:
+        """El filter es como un where,
+        El Q, importado arriba, revisa cada campo del modelo;
+        icontains lo reconoce con mayus, minus e imcompleto"""
+        marca = Vendido.objects.filter(
+            Q(nombre_M=busqueda)
+        ).distinct()
     Marca.objects.filter()
-    return render(request, 'tienda/porMarca.html', {})
+    return render(request, 'tienda/porMarca.html', {'marca':marca})
 
 def top10(request):
     """Pongo - en unidades, para orden descendente"""
@@ -142,11 +152,14 @@ def porCliente(request):
     return render(request, 'tienda/porCliente.html', {'cliente': cliente})
 
 def top10Clientes(request):
-    """Pongo - en unidades, para orden descendente"""
-    """[:X] Registros que quiero obtener"""
-    top10C = Vendido.objects.all().order_by('-importe')[:10]
+    """Pongo - en unidades, para orden descendente
+    [:X] Registros que quiero obtener --> order_by('-importe')[:10]"""
+    # annotate??
+    cliente = User.objects.all()
+    top10C = Vendido.objects.all().values('id_cliente_id').annotate(suma = Sum('importe'))
 
-    return render(request, 'tienda/top10Clientes.html', {'top10C': top10C})
+    print(top10C)
+    return render(request, 'tienda/top10Clientes.html', {'top10C': top10C, 'cliente':cliente})
 
 
 """REGISTRO, LOGIN Y LOGOUT"""

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import ProductoForm, MarcaForm, VendidoForm, UnidadesForm
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.db import transaction
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -18,23 +18,24 @@ def listado(request):
     prd = Producto.objects.all()
     return render(request, 'tienda/listado.html', {"prd":prd})
 
+
 def insertar(request):
     formulario = ProductoForm(request.POST or None)
     if request.method == 'POST':
-        
+
         if formulario.is_valid():
 
             formulario.save()
-            
-            infForm=formulario.cleaned_data
-            
+
+            infForm = formulario.cleaned_data
+
             return redirect('listado')
-        
+
         else:
-            
+
             formulario = ProductoForm()
-            #va a estar vacio
-            
+            # va a estar vacio
+
     return render(request, 'tienda/insertar.html', {'formulario': formulario})
     """Le enviamos los datos al formulario que está en insertar.html"""
 
@@ -114,8 +115,17 @@ def informes(request):
     return render(request, 'tienda/informes.html', {})
 
 def porMarca(request):
-    Marca.objects.filter()
-    return render(request, 'tienda/porMarca.html', {})
+    marca = Producto.objects.all()
+    busqueda = request.GET.get("buscar")
+
+    if busqueda:
+        """El filter es como un where,
+        El Q, importado arriba, revisa cada campo del modelo;
+        icontains lo reconoce con mayus, minus e imcompleto"""
+        marca = Producto.objects.filter(
+            Q(nombre_M=busqueda)
+        ).distinct()
+    return render(request, 'tienda/porMarca.html', {'marca':marca})
 
 def top10(request):
     """Pongo - en unidades, para orden descendente"""
@@ -142,11 +152,17 @@ def porCliente(request):
     return render(request, 'tienda/porCliente.html', {'cliente': cliente})
 
 def top10Clientes(request):
-    """Pongo - en unidades, para orden descendente"""
-    """[:X] Registros que quiero obtener"""
-    top10C = Vendido.objects.all().order_by('-importe')[:10]
+    """Pongo - en unidades, para orden descendente
+    [:X] Registros que quiero obtener --> order_by('-importe')[:10]"""
+    # Partir de la tabla user. LA uno con annotate a la tabla vendido(seleccionando el campo que
+    # necesito --> importe, y creando la variable suma, sumo los importes con sum), y ordeno por suma
+    cliente = User.objects.annotate(suma = Sum('vendido__importe')).order_by('-suma')[:10]
 
-    return render(request, 'tienda/top10Clientes.html', {'top10C': top10C})
+    # top10C = Vendido.objects.all().values('id_cliente').annotate(suma = Sum('importe'))
+
+    print(cliente.values())
+
+    return render(request, 'tienda/top10Clientes.html', { 'cliente':cliente})
 
 
 """REGISTRO, LOGIN Y LOGOUT"""

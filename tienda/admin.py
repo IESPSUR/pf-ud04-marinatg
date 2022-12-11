@@ -18,8 +18,6 @@ class VendidoAdmin(admin.ModelAdmin):
 
 # Re-register UserAdmin
 
-
-
 admin.site.register(Producto)
 admin.site.register(Marca)
 admin.site.register(Vendido)

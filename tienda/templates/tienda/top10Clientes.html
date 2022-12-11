@@ -15,16 +15,28 @@
 
         <table class="table table-striped">
 
+<<<<<<< HEAD
         {% for Vendido in cliente %}
 
             <tr>
 
                 <td><label type="text" name="nombre">Cliente: {{ Vendido.username }}</label></td>
+=======
+        {% for Vendido in top10C %}
+            {% for Usuario in cliente %}
+                {% if Usuario.id == Vendido.id_cliente_id  %}
+
+            <tr>
+
+                <td><label type="text" name="nombre">Cliente: {{ Usuario.username }}</label></td>
+>>>>>>> 25aa53eb950bbd081380528c693e1ad6f4b16d5d
 
                 <td><label type="text" name="importe">importe total: {{ Vendido.suma }}€</label></td>
 
             </tr>
 
+                {% endif %}
+            {% endfor %}
         {% endfor %}
 
         </table>

@@ -115,16 +115,28 @@ def informes(request):
     return render(request, 'tienda/informes.html', {})
 
 def porMarca(request):
+
     marca = Producto.objects.all()
     busqueda = request.GET.get("buscar")
+
+    busqueda = request.GET.get("buscar")
+    marca = Vendido.objects.all()
+
 
     if busqueda:
         """El filter es como un where,
         El Q, importado arriba, revisa cada campo del modelo;
         icontains lo reconoce con mayus, minus e imcompleto"""
+
         marca = Producto.objects.filter(
             Q(nombre_M=busqueda)
         ).distinct()
+
+        marca = Vendido.objects.filter(
+            Q(nombre_M=busqueda)
+        ).distinct()
+    Marca.objects.filter()
+
     return render(request, 'tienda/porMarca.html', {'marca':marca})
 
 def top10(request):
@@ -154,6 +166,7 @@ def porCliente(request):
 def top10Clientes(request):
     """Pongo - en unidades, para orden descendente
     [:X] Registros que quiero obtener --> order_by('-importe')[:10]"""
+
     # Partir de la tabla user. LA uno con annotate a la tabla vendido(seleccionando el campo que
     # necesito --> importe, y creando la variable suma, sumo los importes con sum), y ordeno por suma
     cliente = User.objects.annotate(suma = Sum('vendido__importe')).order_by('-suma')[:10]
@@ -163,6 +176,13 @@ def top10Clientes(request):
     print(cliente.values())
 
     return render(request, 'tienda/top10Clientes.html', { 'cliente':cliente})
+
+    cliente = User.objects.all()
+    top10C = Vendido.objects.all().values('id_cliente_id').annotate(suma = Sum('importe'))
+
+    print(top10C)
+    return render(request, 'tienda/top10Clientes.html', {'top10C': top10C, 'cliente':cliente})
+
 
 
 """REGISTRO, LOGIN Y LOGOUT"""
